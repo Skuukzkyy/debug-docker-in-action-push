@@ -1,9 +1,8 @@
 name: Github Actions Debug
-
 on:
   pull-request:
   push:
-    branches: 
+    branches:
       - develop
 
 jobs:
@@ -11,13 +10,13 @@ jobs:
     name: Running Units Tests
     runs-on: windows-latest
     steps:
-    - name: Checkout code
-      - uses: action/checkout@v2
-    - name: Use Node.js
-      - uses: action/setup-node@v2
-    - name: Compose up the docker
-      - run: docker-compose -f "docker-compose.yml" up -d --build
-    - name: Run tests from the built image
-      - run: docker run survey-form-v2 sh -c "npm test"
-    - name: Compose down the docker
-      - run: docker-compose -f "docker-compose.yml" down
+      - name: Checkout code
+        uses: action/checkout@v2
+      - name: Use Node.js
+        uses: action/setup-node@v2
+      - name: Compose up the docker
+        run: docker-compose -f "docker-compose.yml" up -d --build
+      - name: Run tests from the built image
+        run: docker run survey-form-v2 sh -c "npm test"
+      - name: Compose down the docker
+        run: docker-compose -f "docker-compose.yml" down
